@@ -3,8 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
-void main() => runApp(DetailsScreen());
-
 class DetailsScreen extends StatelessWidget {
   final jobInformation;
   DetailsScreen({@required this.jobInformation});
