@@ -15,7 +15,7 @@ class DetailsScreen extends StatelessWidget {
             new Padding(
               padding: new EdgeInsets.only(left: 10.0, right: 10.0, top: 10.0),
               child: Image.network(
-                image,
+                (image != null && image != "") ? image : "https://www.amplifiedtelephones.co.uk/user/products/large/image-unavailable-amplified-telephones.jpg",
                 width: 70,
               ),
             ),

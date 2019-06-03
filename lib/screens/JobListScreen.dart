@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "dart:convert";
+import "dart:core";
 import "package:http/http.dart" as http;
 import 'package:flutter_github_jobs/screens/DetailsScreen.dart';
 
@@ -12,9 +13,12 @@ class JobListScreen extends StatefulWidget {
 
 class _JobListScreenState extends State<JobListScreen> {
   List<Job> jobs = [];
+  TextEditingController locationController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  bool loading = false;
 
   Future<List<Job>> fetchJobs() async {
-    final response = await http.get("http://jobs.github.com/positions.json?location=new+york");
+    final response = await http.get("http://jobs.github.com/positions.json?location=${Uri.encodeFull(locationController.text)}&description=${Uri.encodeFull(descriptionController.text)}");
     if (response.statusCode == 200) {
       var result = json.decode(response.body);
       List<Job> jobs = [];
@@ -27,38 +31,49 @@ class _JobListScreenState extends State<JobListScreen> {
     }
   }
 
-  void initStateAsync() async {
+  void updateJobs() async {
+    setState(() { loading = true; });
     var newJobs = await fetchJobs();
-    setState(() { jobs = newJobs; });
+    setState(() { jobs = newJobs; loading = false; });
   }
 
   Widget makeJobList(List<Job> jobs) {
-    return (jobs.length > 0) ? ListView.builder(
+    return (loading) ? Center(
+      child:CircularProgressIndicator(),
+    ) : (jobs.length > 0) ? ListView.builder(
       itemCount: jobs.length,
       itemBuilder: (context, int index) {
         return JobComponent(job: jobs[index]);
       },
-    ) : Center(
-      child: CircularProgressIndicator()
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    initStateAsync();
+    ) : new Container();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          title: Text('Jobs List Screen'),
+          backgroundColor: Colors.blueGrey[900],
+      ),
       body: Container(
         child: Column(
           children: [
-            // TextField(
-            //   decoration: InputDecoration(labelText: "Location"),
-            //   keyboardType: TextInputType.text,
-            // ),
+            TextField(
+              controller: locationController,
+              decoration: InputDecoration(labelText: "Location"),
+              keyboardType: TextInputType.text,
+            ),
+            TextField(
+              controller: descriptionController,
+              decoration: InputDecoration(labelText: "Description"),
+              keyboardType: TextInputType.text,
+            ),
+            RaisedButton(
+              onPressed: () { updateJobs(); },
+              child: Text(
+                'Refresh',
+              ),
+            ),
             Expanded(child: makeJobList(jobs)),
           ]
         )
