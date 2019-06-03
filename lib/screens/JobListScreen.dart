@@ -152,6 +152,8 @@ class JobComponent extends StatelessWidget {
       title: Text(
         job.title,
         style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
       ),
       // subtitle
       trailing: Icon(
