@@ -69,9 +69,11 @@ class _JobListScreenState extends State<JobListScreen> {
               keyboardType: TextInputType.text,
             ),
             RaisedButton(
+              color: Colors.blue,
+              textColor: Colors.white,
               onPressed: () { updateJobs(); },
               child: Text(
-                'Refresh',
+                'REFRESH',
               ),
             ),
             Expanded(child: makeJobList(jobs)),
