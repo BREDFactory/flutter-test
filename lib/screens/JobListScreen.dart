@@ -52,7 +52,7 @@ class _JobListScreenState extends State<JobListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('Jobs List Screen'),
+          title: Text('Job List Screen'),
           backgroundColor: Colors.blueGrey[900],
       ),
       body: Container(
@@ -62,11 +62,13 @@ class _JobListScreenState extends State<JobListScreen> {
               controller: locationController,
               decoration: InputDecoration(labelText: "Location"),
               keyboardType: TextInputType.text,
+              onEditingComplete: () { updateJobs(); },
             ),
             TextField(
               controller: descriptionController,
               decoration: InputDecoration(labelText: "Description"),
               keyboardType: TextInputType.text,
+              onEditingComplete: () { updateJobs(); },
             ),
             RaisedButton(
               color: Colors.blue,

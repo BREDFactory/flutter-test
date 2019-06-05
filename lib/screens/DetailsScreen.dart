@@ -62,9 +62,7 @@ class DetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Detail Screen',
-      home: Scaffold(
+    return Scaffold(
           appBar: AppBar(
               title: Text(this.jobInformation.title),
               backgroundColor: Colors.blueGrey[900],
@@ -115,7 +113,7 @@ class DetailsScreen extends StatelessWidget {
                     this.contentCard(this.jobInformation.description)
                   ],
                 ))
-          ])))),
+          ]))),
     );
   }
 }
