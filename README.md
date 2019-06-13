@@ -24,3 +24,18 @@ samples, guidance on mobile development, and a full API reference.
 - Run your application on IOS or Android: run `flutter emulators ` to see all your available emulators   
 - Then run `flutter emulators --launch <emulator id>` to lauch your emulator   
 - Finally run `flutter run` to lauch your application
+
+## Desktop
+
+To use the desktop version of this app you need to be on the flutter master channel.
+
+To switch to the master channel run the following commands:
+```
+flutter channel master
+flutter upgrade
+```
+You also need to set the ENABLE_FLUTTER_DESKTOP environment variable to true.
+```
+export ENABLE_FLUTTER_DESKTOP=true
+```
+Then to verify that it works run `flutter devices` and make sure your device is listed.
